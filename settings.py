@@ -9,7 +9,9 @@ def sort_by_key(dictionary: dict):
 BASE_NUMBERS_FILEPATH = "bank/base_numbers.json"
 NUMBER_LEVEL_FILEPATH = "bank/number_levels.json"
 DATE_PREFIXS_FILEPATH = "bank/date_prefixs.json"
-PHONEMES_FILEPATH = "bank/phonemes.json"
+VOWELS_FILEPATH = "bank/vowels.json"
+FINAL_CONSONANTS_FILEPATH = "bank/final_consonants.json"
+HEAD_CONSONANTS_FILEPATH = "bank/head_consonants.json"
 TONES_FILEPATH = "bank/tones.json"
 UNITS_FILEPATH = "bank/units.json"
 ACRONYMS_FILEPATH = "bank/acronyms.json"
@@ -21,6 +23,8 @@ BREAKS = {
     ".": " chấm ",
     ",": " phẩy ",
 }
+
+ACCENTS = ['1', '2', '3', '4', '5'] # 1: sắc, 2: huyền, 3: hỏi, 4: ngã, 5: nặng
 
 # Load word banks
 with open(TONES_FILEPATH, "r") as file:
@@ -50,5 +54,13 @@ with open(SYMBOLS_FILEPATH, "r", encoding="utf-8") as file:
 with open(SAME_PHONEMES_FILEPATH, "r", encoding="utf-8") as file:
     SAME_PHONEMES = sort_by_key(json.load(file).items())
 
-with open(PHONEMES_FILEPATH, "r", encoding="utf-8") as file:
-    PHONEMES = sorted(json.load(file), key=len, reverse=True)
+with open(VOWELS_FILEPATH, "r", encoding="utf-8") as file:
+    VOWELS = sorted(json.load(file), key=len, reverse=True)
+    
+with open(HEAD_CONSONANTS_FILEPATH, "r", encoding="utf-8") as file:
+    HEAD_CONSONANTS = sorted(json.load(file), key=len, reverse=True)
+    
+with open(FINAL_CONSONANTS_FILEPATH, "r", encoding="utf-8") as file:
+    FINAL_CONSONANTS = sorted(json.load(file), key=len, reverse=True)
+    
+PHONEMES = sorted(VOWELS + HEAD_CONSONANTS + FINAL_CONSONANTS + ACCENTS + list(BREAKS.keys()), key=len, reverse=True)
